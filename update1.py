@@ -102,15 +102,30 @@ stock_code_num_shen = ['000001' ,'000002' ,'000003' ,'000004' ,'000005' ,'000006
 if __name__ == '__main__':
     Judge_date()
     
-    print(anack_d_k_data_date[0][0])
-    print(anack_m_k_data_date[0][0])
-    print(anack_d_index_data_date[0][0])
-    print(anack_d_bigtrade_data_date[0][0])
-    print(getYesterday())
-    for i in stock_code_num_hu:
+# =============================================================================
+#     print(anack_d_k_data_date[0][0])
+#     print(anack_m_k_data_date[0][0])
+#     print(anack_d_index_data_date[0][0])
+#     print(anack_d_bigtrade_data_date[0][0])
+#     print(getYesterday())
+# =============================================================================
+    index()
+    for i in stock_code_num_hu + stock_code_num_shen:
         k_day(i,mode='D',start=anack_d_k_data_date[0][0],end=getYesterday())
-    for j in stock_code_num_shen:
+        print(i)
+    for j in stock_code_num_hu + stock_code_num_shen:
         k_day(j,mode='M',start=anack_d_k_data_date[0][0],end=getYesterday())
+        print(j)
+    delta  = datetime.datetime.strptime(str(getYesterday()),'%Y-%m-%d') - datetime.datetime.strptime(anack_d_bigtrade_data_date[0][0],'%Y-%m-%d')   
+    dates = pd.date_range(anack_d_bigtrade_data_date[0][0], periods=delta.days)
+    for l in dates:
+        for ll in stock_code_num_hu + stock_code_num_shen:
+            ddjy(ll,date = l,vol=2000)
+            print(l)
+            print(ll)
+            
+    
+    
     
     
     
